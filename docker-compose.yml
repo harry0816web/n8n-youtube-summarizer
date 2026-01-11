@@ -7,10 +7,8 @@ services:
     environment:
       - GENERIC_TIMEZONE=Asia/Taipei
       - NODES_EXCLUDE=""
-      # --- Task Runner 設定 (主控端) ---
       - N8N_RUNNERS_ENABLED=true
       - N8N_RUNNERS_MODE=external
-      # 修正：統一使用 = 號，避免 YAML 解析問題
       - N8N_RUNNERS_DISABLED_MODES=embedded
       - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
       - N8N_RUNNERS_BROKER_PORT=5679
@@ -23,7 +21,6 @@ services:
       - task-runners
     restart: always
 
-  # --- Task Runner 服務 (Worker端) ---
   task-runners:
     image: custom-n8n-runner
     build: 
@@ -31,7 +28,6 @@ services:
         dockerfile: Dockerfile
     
     environment:
-      # --- Task Runner 設定 (被控端) ---
       - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
       - N8N_RUNNERS_AUTH_TOKEN=my-super-secret-token-123
       - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
