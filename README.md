@@ -90,6 +90,3 @@ docker-compose logs -f task-runners
 * **`Dockerfile`**: 安裝 Python 3 與 `yt-dlp` 的核心環境。
 * **`docker-compose.yml`**: 定義 n8n 主機與 Runner 之間的分工。
 * **`n8n-task-runners.json`**: 引導 n8n 找到正確的 Python 執行路徑。
-
-
-**準備好開始自動化您的財經新聞摘要了嗎？** 您可以現在就把這段內容貼到您的 GitHub `README.md` 中！需要我幫您補充如何設定 Notion 或 Gmail 的 API 教學嗎？
