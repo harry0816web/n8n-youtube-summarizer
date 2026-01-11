@@ -1,22 +1,3 @@
-# n8n with Custom Python Task Runner
-
-這是一個預先配置好的 **n8n 自動化環境**，採用了 **External Task Runner** 架構。
-
-本專案解決了官方 n8n Docker Image 無法直接執行複雜 Python 腳本（如 `yt-dlp`、`Selenium` 等）的問題。透過獨立的 Runner 容器，您可以擁有一個乾淨、隔離且預裝好 Python 環境的執行端，專門處理 Python 節點任務。
-
-## ✨ 特色功能
-
-* **n8n task runner**：
-  * `n8n` 服務：使用官方原版 Image，負責工作流排程與介面。
-  * `task-runners` 服務：基於 Debian 建置的客製化容器，負責執行程式碼。
-* **Python 環境預備**：Runner 已預裝 Python 3 以及 `pip`。
-* **內建工具**：預設包含 `yt-dlp`、`requests`、`pytz` 等常用套件，特別適合 **YouTube 字幕抓取** 與 **資料爬蟲** 應用。
-* **設定自動化**：已包含 `n8n-task-runners.json` 設定檔，開箱即用。
-
-這份 **Quick Start (快速上手指南)** 專為您的 GitHub 專案 `n8n-youtube-summarizer` 設計。它涵蓋了從下載程式碼到成功啟動服務的所有必要步驟，並針對您目前使用的 **External Task Runner** 架構進行了優化設定。
-
----
-
 # 🚀 n8n YouTube Summarizer Quick Start
 
 這套環境預先配置了 **n8n** 主程式與一個 **客製化 Python Runner**。它能讓您在 n8n 的 Code 節點中直接執行 `yt-dlp` 抓取 YouTube 字幕，並結合 AI 進行摘要。
