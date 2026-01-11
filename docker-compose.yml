@@ -1,0 +1,39 @@
+services:
+  n8n:
+    image: n8nio/n8n:2.0.0
+    ports:
+      - "5678:5678"
+      - "5679:5679"
+    environment:
+      - GENERIC_TIMEZONE=Asia/Taipei
+      - NODES_EXCLUDE=""
+      # --- Task Runner 設定 (主控端) ---
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_RUNNERS_MODE=external
+      # 修正：統一使用 = 號，避免 YAML 解析問題
+      - N8N_RUNNERS_DISABLED_MODES=embedded
+      - N8N_RUNNERS_BROKER_LISTEN_ADDRESS=0.0.0.0
+      - N8N_RUNNERS_BROKER_PORT=5679
+      - N8N_RUNNERS_AUTH_TOKEN=my-super-secret-token-123
+      - N8N_RUNNERS_JAVASCRIPT_ENABLED=true
+      - N8N_RUNNERS_PYTHON_ENABLED=true
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    depends_on:
+      - task-runners
+    restart: always
+
+  # --- Task Runner 服務 (Worker端) ---
+  task-runners:
+    image: custom-n8n-runner
+    build: 
+        context: .
+        dockerfile: Dockerfile
+    
+    environment:
+      # --- Task Runner 設定 (被控端) ---
+      - N8N_RUNNERS_TASK_BROKER_URI=http://n8n:5679
+      - N8N_RUNNERS_AUTH_TOKEN=my-super-secret-token-123
+      - N8N_RUNNERS_LAUNCHER_LOG_LEVEL=debug
+    restart: always
+
